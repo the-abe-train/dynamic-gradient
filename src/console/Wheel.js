@@ -1,6 +1,8 @@
-export function Wheel({ name }) {
+export function Wheel({ name, angle, setAngle }) {
 
   const title = name.charAt(0).toUpperCase() + name.substr(1).toLowerCase()
+
+  let rotation;
 
   function activateDrag(e) {
     const wheelElement = e.target.closest(".wheel");
@@ -14,8 +16,11 @@ export function Wheel({ name }) {
       const mouse = { mx: e.clientX, my: e.clientY }
       let { mx, my } = mouse;
       let { wx, wy } = wheel;
-      let angle = Math.atan2(my - wy, mx - wx);
-      wheelElement.style.transform = `rotate(${angle}rad)`;
+
+      // Calculate angle
+      rotation = Math.atan2(my - wy, mx - wx);
+      wheelElement.style.transform = `rotate(${rotation}rad)`; 
+      setAngle(rotation);
     }
 
     const deactivateDrag = (e) => {
