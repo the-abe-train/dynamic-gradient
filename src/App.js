@@ -1,5 +1,5 @@
 import './App.css';
-import { Console } from './console/Console';
+import { Console } from './Console';
 
 function Header() {
   return (
