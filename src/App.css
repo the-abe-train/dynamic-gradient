@@ -68,3 +68,24 @@ main {
 .colour-square:hover {
   box-shadow: 1px 1px 1px black;
 }
+
+/* Checkboxes */
+#checkboxes {
+  display: flex;
+  width: clamp(4rem, 100%, 14rem);
+  /* width: 80%; */
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+
+/* Output */
+#output-area {
+  text-align: left;
+}
+
+.indent {
+  margin-left: 20px;
+}
+
+/* Preview */
