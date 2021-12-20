@@ -1,11 +1,18 @@
+import { useEffect } from "react";
+
 export function Wheel({ name, angle, setAngle }) {
 
   const title = name.charAt(0).toUpperCase() + name.substr(1).toLowerCase()
 
   let rotation;
 
+  function getElement() {
+    return document.querySelector(`#${name}-wheel`);
+  }
+
+
   function activateDrag(e) {
-    const wheelElement = e.target.closest(".wheel");
+    const wheelElement = getElement();
     const wheelRect = wheelElement.getBoundingClientRect();
     const wheel = {
       wx: wheelRect.left + (wheelRect.width / 2),
@@ -19,7 +26,7 @@ export function Wheel({ name, angle, setAngle }) {
 
       // Calculate angle
       rotation = Math.atan2(my - wy, mx - wx);
-      wheelElement.style.transform = `rotate(${rotation}rad)`; 
+      // wheelElement.style.transform = `rotate(${rotation}rad)`; 
       setAngle(rotation);
     }
 
@@ -31,11 +38,17 @@ export function Wheel({ name, angle, setAngle }) {
     document.addEventListener("mouseup", deactivateDrag, false);
   }
 
+  useEffect(() => {
+    const wheelElement = getElement();
+    wheelElement.style.transform = `rotate(${angle}rad)`; 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [angle])
+
 
   return (
     <div onMouseDown={activateDrag} className="wheel-section">
       <label htmlFor="wheel">{title} Angle</label>
-      <svg className="wheel" height="100" width="100">
+      <svg id={`${name}-wheel`} className="wheel" height="100" width="100">
         <circle cx="50" cy="50" r="40" stroke="black" strokeWidth="3" fill="transparent" />
         <line x1="50" y1="50" x2="90" y2="50" stroke="black" strokeWidth="3" />
       </svg>
