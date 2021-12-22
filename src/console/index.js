@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { Wheel } from "./Wheel";
 import { Slider } from "./Slider";
 import { Content } from "./Content";
 import { Colours } from "./Colours";
-// import { Checkboxes } from "./Checkboxes";
+
+import { ColoursListContext } from "../context";
 
 // TODO Reset function should fix the active colour to default.
 
@@ -18,7 +19,9 @@ export function Console() {
   const [gradient, setGradient] = useState(defaultGradient);
   const [scroll, setScroll] = useState(defaultScroll);
   const [speed, setSpeed] = useState(defaultSpeed);
-  const [coloursList, setColoursList] = useState(defaultColoursList);
+
+  const { setColoursList } = useContext(ColoursListContext);
+
 
   function resetConsole() {
     setGradient(defaultGradient);
@@ -36,12 +39,11 @@ export function Console() {
           <Wheel name={'scroll'} angle={scroll} setAngle={setScroll} />
         </div>
         <Slider speed={speed} setSpeed={setSpeed} />
-        <Colours coloursList={coloursList} setColoursList={setColoursList} />
-        {/* <Checkboxes /> */}
+        <Colours />
         <button onClick={resetConsole} >Reset</button>
       </div>
       <div id="output" className="content">
-        <Content gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
+        <Content gradient={gradient} scroll={scroll} speed={speed} />
       </div>
     </main>
   )

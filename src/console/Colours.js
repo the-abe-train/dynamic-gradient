@@ -1,7 +1,9 @@
 import { HexColorPicker } from "react-colorful";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ColoursListContext } from "../context";
 
 // TODO Make the picker useable with only keyboard?
+// TODO to clean up some of the props, use the useContext hook.
 
 const Picker = ({ colour, setColour }) => {
 
@@ -63,10 +65,12 @@ function ColourSquare({ squareColour, setColour, squareNumber,
 }
 
 
-export function Colours({ coloursList, setColoursList }) {
+export function Colours() {
 
   const [colour, setColour] = useState("#7F95D1");
   const [square, setSquare] = useState(null);
+
+  const { coloursList, setColoursList } = useContext(ColoursListContext);
 
   function addColour() {
     setColoursList([...coloursList, colour]);
@@ -102,7 +106,8 @@ export function Colours({ coloursList, setColoursList }) {
         {coloursList.map((squareColour, index) => {
           const isActive = index === square;
           return <ColourSquare key={index} setColour={setColour} squareNumber={index}
-          setSquare={setSquare} activeColour={colour} squareColour={squareColour} isActive={isActive} />
+          setSquare={setSquare} activeColour={colour} squareColour={squareColour} 
+          isActive={isActive} />
         })}
       </ul>
       {(coloursList.length < 3) && 

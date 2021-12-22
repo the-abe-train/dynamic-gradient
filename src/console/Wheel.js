@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 
+// TODO use the useRef hook instead of querySelector
+
 export function Wheel({ name, angle, setAngle }) {
 
   const title = name.charAt(0).toUpperCase() + name.substr(1).toLowerCase()
