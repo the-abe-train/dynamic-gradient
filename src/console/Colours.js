@@ -1,8 +1,6 @@
 import { HexColorPicker } from "react-colorful";
 import { useEffect, useState } from "react";
 
-// TODO Make the picker useable with only keyboard?
-
 const Picker = ({ colour, setColour }) => {
 
   return (
@@ -12,8 +10,8 @@ const Picker = ({ colour, setColour }) => {
   )
 };
 
-function ColourSquare({ squareColour, setColour, squareNumber,
-  isActive, setSquare, activeColour }) {
+function ColourSquare({ coloursList, setColoursList, squareColour, setColour, squareNumber,
+  isActive, square, setSquare, activeColour }) {
 
   const [show, setShow] = useState(false);
 
@@ -32,8 +30,18 @@ function ColourSquare({ squareColour, setColour, squareNumber,
     }
   }
 
+  function removeColour() {
+    if (square) {
+      const newList = [...coloursList];
+      newList.splice(square, 1);
+      setColoursList(newList);
+      setSquare(null);
+    }
+  }
+
   function blur(e) {
     if (!e.currentTarget.contains(e.relatedTarget)) {
+      setSquare(null);
       setShow(false);
     }
   }
@@ -55,6 +63,7 @@ function ColourSquare({ squareColour, setColour, squareNumber,
           <Picker show={show} setShow={setShow} colour={activeColour}
             setColour={setColour} />
             <button onClick={() => setShow(false)}>Select</button>
+            <button onClick={removeColour}>Remove</button>
         </div>
       }
     </div>
@@ -72,14 +81,7 @@ export function Colours({coloursList, setColoursList, square, setSquare}) {
     setSquare(coloursList.length);
   }
 
-  function removeColour() {
-    if (square) {
-      const newList = [...coloursList];
-      newList.splice(square, 1);
-      setColoursList(newList);
-      setSquare(null);
-    }
-  }
+
 
   // Change colour using useEffect
   // On the effect of Colour change, find the Colour in the Colours List
@@ -96,17 +98,17 @@ export function Colours({coloursList, setColoursList, square, setSquare}) {
     <div className="colours">
       <h3>Colours</h3>
       <button onClick={addColour}>Add</button>
-      <button onClick={removeColour}>Real Remove</button>
+      
       <ul className="colours-list">
         {coloursList.map((squareColour, index) => {
           const isActive = index === square;
           return <ColourSquare key={index} setColour={setColour} squareNumber={index}
-          setSquare={setSquare} activeColour={colour} squareColour={squareColour} 
-          isActive={isActive} />
+          square={square} setSquare={setSquare} activeColour={colour} squareColour={squareColour} 
+          isActive={isActive} coloursList={coloursList} setColoursList={setColoursList} />
         })}
       </ul>
       {(coloursList.length < 2) && 
-      <p>Please have at least 2 colours.</p>
+      <p className="error-text">Please select at least 2 colours.</p>
       }
     </div>
   )

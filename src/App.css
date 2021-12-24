@@ -7,7 +7,7 @@
 main {
   background-color: rgb(194, 194, 194);
   width: clamp(10rem, 80%, 60rem);
-  margin: 0 auto;
+  margin: 1rem auto;
   
   display: flex;
   padding: 1rem;
@@ -17,6 +17,10 @@ main {
 
 h1 {
   margin: 0;
+}
+
+h3 {
+  margin-bottom: 0;
 }
 
 .content {
@@ -94,4 +98,7 @@ h1 {
   margin-left: 20px;
 }
 
-/* Preview */
+.error-text {
+  color: red;
+  font-size: small;
+}
