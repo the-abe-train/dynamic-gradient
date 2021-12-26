@@ -13,7 +13,7 @@ export function Selector({ cssClass, setCssClass }) {
   }, [cssClass])
 
   return (
-    <div>
+    <div className="subsection">
       <label htmlFor="selector"><h3>CSS Class</h3></label>
       <input
         spellCheck="false"
@@ -22,7 +22,9 @@ export function Selector({ cssClass, setCssClass }) {
         value={cssClass}
         type="text"
         onChange={e => setCssClass(e.target.value.toLowerCase())} />
-      <p className="error-text">{error}</p>
+      {error &&
+        <p className="error-text">{error}</p>
+      }
     </div>
   )
 }
