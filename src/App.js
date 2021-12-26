@@ -3,20 +3,24 @@ import { Console } from './Console';
 
 function Header() {
   return (
-    <div>
-      <h1>CSS Dynamic Gradient Generator</h1>
-      <div><span>by Abe Train</span></div>
-    </div>
+    <h1>Dynamic Gradient Generator</h1>
+  )
+}
+
+function Footer() {
+  return (
+    <span id="footer">by Abe Train</span>
   )
 }
 
 function App() {
 
   return (
-      <div className="App" >
-        <Header />
-        <Console />
-      </div>
+    <div className="App" >
+      <Header />
+      <Console />
+      <Footer />
+    </div>
   );
 }
 

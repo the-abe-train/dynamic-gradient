@@ -3,9 +3,13 @@ import { useEffect, useState } from "react";
 
 const Picker = ({ colour, setColour }) => {
 
+  function setUpperColour(c) {
+    setColour(c.toUpperCase());
+  }
+
   return (
     <div >
-      <HexColorPicker color={colour} onChange={setColour} />
+      <HexColorPicker color={colour} onChange={setUpperColour} />
     </div>
   )
 };
@@ -31,7 +35,8 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
   }
 
   function removeColour() {
-    if (square) {
+    // 0 and null are the same for most conditial statements
+    if (Number.isInteger(square)) {
       const newList = [...coloursList];
       newList.splice(square, 1);
       setColoursList(newList);
@@ -59,11 +64,11 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
       <li className="colour-square" style={style} onClick={activateSquare}></li>
       {
         show &&
-        <div  id="pallet">
+        <div id="pallet">
           <Picker show={show} setShow={setShow} colour={activeColour}
             setColour={setColour} />
-            <button onClick={() => setShow(false)}>Select</button>
-            <button onClick={removeColour}>Remove</button>
+          <button onClick={() => setShow(false)}>Select</button>
+          <button onClick={removeColour}>Remove</button>
         </div>
       }
     </div>
@@ -71,17 +76,14 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
 }
 
 
-export function Colours({coloursList, setColoursList, square, setSquare}) {
+export function Colours({ coloursList, setColoursList, square, setSquare }) {
 
   const [colour, setColour] = useState("#7F95D1");
-  
 
   function addColour() {
     setColoursList([...coloursList, colour]);
     setSquare(coloursList.length);
   }
-
-
 
   // Change colour using useEffect
   // On the effect of Colour change, find the Colour in the Colours List
@@ -95,21 +97,21 @@ export function Colours({coloursList, setColoursList, square, setSquare}) {
 
 
   return (
-    <div className="colours">
+    <div className="subsection" id="colours-section">
       <h3>Colours</h3>
-      <button onClick={addColour}>Add</button>
-      
+
       <ul className="colours-list">
         {coloursList.map((squareColour, index) => {
           const isActive = index === square;
           return <ColourSquare key={index} setColour={setColour} squareNumber={index}
-          square={square} setSquare={setSquare} activeColour={colour} squareColour={squareColour} 
+          square={square} setSquare={setSquare} activeColour={colour} squareColour={squareColour}
           isActive={isActive} coloursList={coloursList} setColoursList={setColoursList} />
         })}
       </ul>
-      {(coloursList.length < 2) && 
-      <p className="error-text">Please select at least 2 colours.</p>
+      {(coloursList.length < 2) &&
+        <p className="error-text">Please select at least 2 colours.</p>
       }
+      <button onClick={addColour}>Add</button>
     </div>
   )
 }

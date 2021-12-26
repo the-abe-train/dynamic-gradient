@@ -1,4 +1,3 @@
-// TODO Send actual css string to node server
 import { cssString } from "../util";
 
 export function Gist({speed, coloursList, gradient, scroll, cssClass}) {
@@ -28,10 +27,7 @@ export function Gist({speed, coloursList, gradient, scroll, cssClass}) {
   }
 
   return (
-    <div>
-      <h3>Header</h3>
       <button onClick={postGist}>Create Gist</button>
-    </div>
   )
 
 }

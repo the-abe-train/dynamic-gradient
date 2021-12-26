@@ -42,18 +42,19 @@ export function Wheel({ name, angle, setAngle }) {
 
   useEffect(() => {
     const wheelElement = getElement();
-    wheelElement.style.transform = `rotate(${angle}rad)`; 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    wheelElement.style.transform = `rotate(${angle}rad)`;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [angle])
 
 
   return (
-    <div onMouseDown={activateDrag} className="wheel-section">
+    <div onMouseDown={activateDrag} id="wheel-section" className="subsection">
       <label htmlFor="wheel"><h3>{title}</h3></label>
-      <svg id={`${name}-wheel`} className="wheel" height="100" width="100">
+      {/* <svg id={`${name}-wheel`} className="wheel" height="100" width="100">
         <circle cx="50" cy="50" r="40" stroke="black" strokeWidth="3" fill="transparent" />
         <line x1="50" y1="50" x2="90" y2="50" stroke="black" strokeWidth="3" />
-      </svg>
+      </svg> */}
+      <img id={`${name}-wheel`} className="wheel" src="Group 1.svg" alt="" />
     </div>
   )
 }

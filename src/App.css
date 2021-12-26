@@ -1,41 +1,56 @@
 .App {
-  text-align: center;
-  height: 100%;
+  /* text-align: center; */
+  height: 150%;
   padding: 3rem 0;
+  width: clamp(10rem, 80%, 800px);
+  margin: 0 auto;
+}
+
+
+#footer {
+  text-align: left;
 }
 
 main {
-  background-color: rgb(194, 194, 194);
-  width: clamp(10rem, 80%, 60rem);
+  background-color: rgb(230, 230, 230);
   margin: 1rem auto;
-  
   display: flex;
-  padding: 1rem;
-  gap: 1rem;
-  min-height: 600px;
+  padding: 0 1rem;
+  gap: 2rem;
+  border: solid;
 }
 
 h1 {
   margin: 0;
+  text-align: center;
+}
+
+h2 {
+  margin: 0;
 }
 
 h3 {
-  margin-bottom: 0;
+  margin: .5rem 0;
 }
 
-.content {
+.console-half {
   /* height: 100%; */
-  padding: 1rem;
+  /* padding: 1rem; */
+}
+
+.section {
+  padding: .75rem;
+}
+
+.subsection {
+  padding: .5rem;
 }
 
 #controls {
-  background-color: rgb(230, 230, 255);
-  width: 30%;
-}
-
-#output {
-  background-color: rgb(255, 190, 190);
-  flex-grow: 1;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  
 }
 
 #wheels {
@@ -43,13 +58,25 @@ h3 {
   justify-content: center;
 }
 
-.wheel-section {
+.wheel {
+  pointer-events: none;
+  width: 75%;
+}
+
+#wheel-section {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+/* Speed */
+#speed-input {
+  margin: 0 auto;
+  display: block;
 }
 
 /* Colour picker */
-.colours {
+#colours-section {
   position: relative;
 }
 
@@ -63,7 +90,7 @@ h3 {
 .colours-list {
   display: grid;
   list-style-type: none;
-  margin: 1rem;
+  margin: 0;
   padding: 0;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
@@ -92,6 +119,12 @@ h3 {
 /* Output */
 #output-area {
   text-align: left;
+  background-color: white;
+  flex-grow: 1;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-size: small;
+  border: solid;
 }
 
 .indent {
@@ -101,4 +134,9 @@ h3 {
 .error-text {
   color: red;
   font-size: small;
+}
+
+#reset-span {
+  display: flex;
+  gap: 2rem;
 }

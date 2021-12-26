@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Selector } from "./Input";
+import { Selector } from "./Selector";
 import { Wheel } from "./Wheel";
 import { Slider } from "./Slider";
 import { Content } from "./Content";
@@ -8,6 +8,8 @@ import { Colours } from "./Colours";
 import { Gist } from "./Gist";
 
 import { cssString } from "../util";
+
+// TODO add Buy Me a Coffee API
 
 export function Console() {
 
@@ -40,19 +42,31 @@ export function Console() {
   return (
     <main >
       <style> {preview} </style>
-      <div id="controls" className="content">
-        <Selector cssClass={cssClass} setCssClass={setCssClass} />
-        <div id="wheels">
-          <Wheel name={'gradient'} angle={gradient} setAngle={setGradient} />
-          <Wheel name={'scroll'} angle={scroll} setAngle={setScroll} />
+      <div id="controls" className="console-half">
+        <div className="section">
+          <h2>Design your gradient</h2>
+          <Selector cssClass={cssClass} setCssClass={setCssClass} />
+          <div id="wheels">
+            <Wheel name={'gradient'} angle={gradient} setAngle={setGradient} />
+            <Wheel name={'scroll'} angle={scroll} setAngle={setScroll} />
+          </div>
+          <Slider speed={speed} setSpeed={setSpeed} />
+          <Colours coloursList={coloursList} setColoursList={setColoursList} square={square} setSquare={setSquare} />
         </div>
-        <Slider speed={speed} setSpeed={setSpeed} />
-        <Colours coloursList={coloursList} setColoursList={setColoursList} square={square} setSquare={setSquare} />
-        <button onClick={resetConsole} >Reset</button>
-        <Gist cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
       </div>
-      <div id="output" className="content">
-        <Content cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
+      <div className="console-half">
+        <div className="section">
+          <h2>Copy and paste into CSS stylesheet</h2>
+          <Content cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
+        </div>
+        <div className="section">
+          <h2>Save and share</h2>
+          <Gist cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
+          <Gist cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
+        </div>
+        <div className="section">
+          <span id="reset-span"><h2>Try a new gradient</h2><button onClick={resetConsole} >Reset</button></span>
+        </div>
       </div>
     </main >
   )
