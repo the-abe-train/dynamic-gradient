@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 
+import { Selector } from "./Input";
 import { Wheel } from "./Wheel";
 import { Slider } from "./Slider";
 import { Content } from "./Content";
 import { Colours } from "./Colours";
+import { Gist } from "./Gist";
 
-import { calcScroll, listToString, radToDeg } from "../util";
+import { cssString } from "../util";
 
 export function Console() {
 
@@ -20,6 +22,7 @@ export function Console() {
   const [coloursList, setColoursList] = useState(defaultColoursList);
   const [square, setSquare] = useState(null);
   const [preview, setPreview] = useState("");
+  const [cssClass, setCssClass] = useState("css-selector");
 
   function resetConsole() {
     setGradient(defaultGradient);
@@ -30,27 +33,15 @@ export function Console() {
   }
 
   useEffect(() => {
-    const { x1, y1, x2, y2, x3, y3 } = calcScroll(scroll);
-    setPreview(
-      `html {
-          background: linear-gradient(${radToDeg(gradient)}deg, ${listToString(coloursList)});
-          background-size: 400% 400%;
-          animation: GradientAnimation ${60-speed}s ease infinite;
-        }
-        
-        @keyframes GradientAnimation {
-          0%{background-position:  ${x1}% ${y1}%}
-          50%{background-position: ${x2}% ${y2}%}
-          100%{background-position:${x3}% ${y3}%}
-        }`
-    )
+    const style = cssString(speed, coloursList, gradient, scroll, "html");
+    setPreview(style);
   }, [speed, coloursList, gradient, scroll])
 
   return (
     <main >
       <style> {preview} </style>
       <div id="controls" className="content">
-        <input type="text" />
+        <Selector cssClass={cssClass} setCssClass={setCssClass} />
         <div id="wheels">
           <Wheel name={'gradient'} angle={gradient} setAngle={setGradient} />
           <Wheel name={'scroll'} angle={scroll} setAngle={setScroll} />
@@ -58,9 +49,10 @@ export function Console() {
         <Slider speed={speed} setSpeed={setSpeed} />
         <Colours coloursList={coloursList} setColoursList={setColoursList} square={square} setSquare={setSquare} />
         <button onClick={resetConsole} >Reset</button>
+        <Gist cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
       </div>
       <div id="output" className="content">
-        <Content gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
+        <Content cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
       </div>
     </main >
   )
