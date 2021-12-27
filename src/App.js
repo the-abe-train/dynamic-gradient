@@ -1,5 +1,5 @@
 import './App.css';
-import { Console } from './Console/index';
+import { Console } from './Console';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
