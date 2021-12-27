@@ -83,7 +83,7 @@ export function Console() {
           <div id="api-btns">
             <button id="copy-btn" className="btn-api" onClick={copyToClipboard}><span className="icon"><FontAwesomeIcon icon="copy" /></span> Clipboard</button>
             <Gist cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
-            <a href="https://www.buymeacoffee.com/theabetrain" target="_blank" rel="noreferrer"><img className="btn-api" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" id="coffee-btn" style={{ height: '60px !important', width: '217px !important' }} /></a>
+            <a href="https://www.buymeacoffee.com/theabetrain" target="_blank" rel="noreferrer"><img className="btn-api" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" id="coffee-btn" style={{ height: '40px !important', width: '142px !important' }} /></a>
           </div>
         </div>
       </div>

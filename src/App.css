@@ -92,11 +92,12 @@ button:hover {
 #wheels {
   display: flex;
   justify-content: center;
+  gap: 15%;
 }
 
 .wheel {
   /* pointer-events: none; */
-  width: 75%;
+  width: 5rem;
   cursor: pointer;
   -webkit-user-drag: none;
   background-color: var(--controls-bg);
@@ -228,7 +229,7 @@ button:hover {
 
 #reset-btn {
   color: white;
-  background-color: rgb(252, 74, 74);
+  background-color: #DB0000;
   border: solid 1px black;
   border-radius: 0.5rem;
   padding: 0 1rem;

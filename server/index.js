@@ -69,11 +69,11 @@ app.get('/callback', async function (req, res) {
 })
 
 app.get('*', function (req, res) {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
 })
 
 
 app.listen(port, () => {
-  console.log(`Listening at ${process.enc.REACT_APP_DOMAIN}`)
+  console.log(`Listening at ${process.env.REACT_APP_DOMAIN}`)
 })
 

@@ -63,8 +63,8 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
   const sharpCorner = `#controls-functions {border-bottom-right-radius: 0;}`;
 
   return (
-    <div tabIndex={0} onBlur={blur}>
-      <li className="colour-square" style={style} onClick={activateSquare}></li>
+    <li tabIndex={0} onBlur={blur}>
+      <div className="colour-square" style={style} onClick={activateSquare}></div>
       {
         show &&
         <div id="pallet">
@@ -77,7 +77,7 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
           <style>{sharpCorner}</style>
         </div>
       }
-    </div>
+    </li>
   )
 }
 

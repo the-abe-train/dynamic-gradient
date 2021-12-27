@@ -18,8 +18,8 @@ function Footer() {
   return (
     <span id="footer" className="icon">
       <a className="socials-link" href="https://the-abe-train.com">by The Abe Train</a>
-      <a className="socials-link" href="https://twitter.com/theAbeTrain"><FontAwesomeIcon icon={["fab", "twitter"]} /></a>
-      <a className="socials-link" href="https://github.com/the-abe-train"><FontAwesomeIcon icon={["fab", "github"]} /></a>
+      <a className="socials-link" alt="@theAbeTrain twitter profile" href="https://twitter.com/theAbeTrain"><FontAwesomeIcon icon={["fab", "twitter"]} /></a>
+      <a className="socials-link" alt="@the-abe-train github profile" href="https://github.com/the-abe-train"><FontAwesomeIcon icon={["fab", "github"]} /></a>
     </span>
   )
 }

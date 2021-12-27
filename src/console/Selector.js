@@ -17,7 +17,7 @@ export function Selector({ cssClass, setCssClass }) {
       <label htmlFor="selector"><h3>CSS Class</h3></label>
       <input
         spellCheck="false"
-        className="selector"
+        id="selector"
         name="selector"
         value={cssClass}
         type="text"
