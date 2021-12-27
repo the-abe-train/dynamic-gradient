@@ -60,6 +60,8 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
     }
   }, [isActive])
 
+  const sharpCorner = `#controls-functions {border-bottom-right-radius: 0;}`;
+
   return (
     <div tabIndex={0} onBlur={blur}>
       <li className="colour-square" style={style} onClick={activateSquare}></li>
@@ -72,6 +74,7 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
             <button className="btn-1 pallet-btn" onClick={() => setShow(false)}>Select</button>
             <button className="btn-1 pallet-btn" onClick={removeColour}>Remove</button>
           </div>
+          <style>{sharpCorner}</style>
         </div>
       }
     </div>

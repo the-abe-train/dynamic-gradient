@@ -40,8 +40,8 @@ export function cssString(speed, coloursList, gradient, scroll, selector) {
 }
   
 @keyframes GradientAnimation {
-    0%{background-position:  ${x1}% ${y1}%}
+    0%{background-position: ${x1}% ${y1}%}
     50%{background-position: ${x2}% ${y2}%}
-    100%{background-position:${x3}% ${y3}%}
+    100%{background-position: ${x3}% ${y3}%}
 }`
 }
