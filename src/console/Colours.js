@@ -1,4 +1,4 @@
-import { HexColorPicker } from "react-colorful";
+import { HexColorPicker, HexColorInput } from "react-colorful";
 import { useEffect, useState } from "react";
 
 const Picker = ({ colour, setColour }) => {
@@ -8,8 +8,9 @@ const Picker = ({ colour, setColour }) => {
   }
 
   return (
-    <div >
+    <div id="colour-picker">
       <HexColorPicker color={colour} onChange={setUpperColour} />
+      <HexColorInput color={colour} onChange={setUpperColour} />
     </div>
   )
 };
@@ -67,8 +68,10 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
         <div id="pallet">
           <Picker show={show} setShow={setShow} colour={activeColour}
             setColour={setColour} />
-          <button onClick={() => setShow(false)}>Select</button>
-          <button onClick={removeColour}>Remove</button>
+          <div id="pallet-btns">
+            <button className="btn-1 pallet-btn" onClick={() => setShow(false)}>Select</button>
+            <button className="btn-1 pallet-btn" onClick={removeColour}>Remove</button>
+          </div>
         </div>
       }
     </div>
@@ -78,7 +81,7 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
 
 export function Colours({ coloursList, setColoursList, square, setSquare }) {
 
-  const [colour, setColour] = useState("#7F95D1");
+  const [colour, setColour] = useState(coloursList[0]);
 
   function addColour() {
     setColoursList([...coloursList, colour]);
@@ -98,20 +101,20 @@ export function Colours({ coloursList, setColoursList, square, setSquare }) {
 
   return (
     <div className="subsection" id="colours-section">
-      <h3>Colours</h3>
+      <h3 id="colours-header">Colours</h3>
 
       <ul className="colours-list">
         {coloursList.map((squareColour, index) => {
           const isActive = index === square;
           return <ColourSquare key={index} setColour={setColour} squareNumber={index}
-          square={square} setSquare={setSquare} activeColour={colour} squareColour={squareColour}
-          isActive={isActive} coloursList={coloursList} setColoursList={setColoursList} />
+            square={square} setSquare={setSquare} activeColour={colour} squareColour={squareColour}
+            isActive={isActive} coloursList={coloursList} setColoursList={setColoursList} />
         })}
       </ul>
       {(coloursList.length < 2) &&
         <p className="error-text">Please select at least 2 colours.</p>
       }
-      <button onClick={addColour}>Add</button>
+      <button id="add-colour-btn" className="btn-1" onClick={addColour}>Add</button>
     </div>
   )
 }

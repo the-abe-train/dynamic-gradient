@@ -31,9 +31,11 @@ export function calcScroll(rad) {
 
 export function cssString(speed, coloursList, gradient, scroll, selector) {
   const { x1, y1, x2, y2, x3, y3 } = calcScroll(scroll);
+  const growth = coloursList.length * 200;
+
   return `${selector} {
     background: linear-gradient(${radToDeg(gradient)}deg, ${listToString(coloursList)});
-    background-size: 400% 400%;
+    background-size: ${growth}% ${growth}%;
     animation: GradientAnimation ${60 - speed}s ease infinite;
 }
   

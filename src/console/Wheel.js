@@ -1,20 +1,15 @@
-import { useEffect } from "react";
-
-// TODO use the useRef hook instead of querySelector
+import { useEffect, useRef } from "react";
 
 export function Wheel({ name, angle, setAngle }) {
+
+  const wheelRef = useRef();
 
   const title = name.charAt(0).toUpperCase() + name.substr(1).toLowerCase()
 
   let rotation;
 
-  function getElement() {
-    return document.querySelector(`#${name}-wheel`);
-  }
-
-
   function activateDrag(e) {
-    const wheelElement = getElement();
+    const wheelElement = wheelRef.current;
     const wheelRect = wheelElement.getBoundingClientRect();
     const wheel = {
       wx: wheelRect.left + (wheelRect.width / 2),
@@ -41,7 +36,7 @@ export function Wheel({ name, angle, setAngle }) {
   }
 
   useEffect(() => {
-    const wheelElement = getElement();
+    const wheelElement = wheelRef.current;
     wheelElement.style.transform = `rotate(${angle}rad)`;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [angle])
@@ -54,7 +49,7 @@ export function Wheel({ name, angle, setAngle }) {
         <circle cx="50" cy="50" r="40" stroke="black" strokeWidth="3" fill="transparent" />
         <line x1="50" y1="50" x2="90" y2="50" stroke="black" strokeWidth="3" />
       </svg> */}
-      <img id={`${name}-wheel`} className="wheel" src="Group 1.svg" alt="" />
+      <img id={`${name}-wheel`} ref={wheelRef} className="wheel" src="Group 1.svg" alt="" />
     </div>
   )
 }

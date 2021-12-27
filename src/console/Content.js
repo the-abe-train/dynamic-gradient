@@ -3,12 +3,13 @@ import { calcScroll, listToString, radToDeg } from "../util";
 export function Content({ cssClass, gradient, scroll, speed, coloursList }) {
 
   const { x1, y1, x2, y2, x3, y3 } = calcScroll(scroll);
+  const growth = coloursList.length * 200;
 
   return (
     <div id="output-area">
       <span >.{cssClass} &#123; </span> <br />
       <span className="indent">background: linear-gradient({radToDeg(gradient)}deg, {listToString(coloursList)});</span> <br />
-      <span className="indent">background-size: 400% 400%;</span> <br />
+      <span className="indent">background-size: {growth}% {growth}%;</span> <br />
       <span className="indent">animation: GradientAnimation {60 - speed}s ease infinite;</span> <br />
       <span>&#125;</span> <br />
       <br />

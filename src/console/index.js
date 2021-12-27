@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Selector } from "./Selector";
 import { Wheel } from "./Wheel";
@@ -9,14 +10,13 @@ import { Gist } from "./Gist";
 
 import { cssString } from "../util";
 
-// TODO add Buy Me a Coffee API
 
 export function Console() {
 
   const defaultGradient = 0;
   const defaultScroll = 0;
   const defaultSpeed = 30;
-  const defaultColoursList = ['#7F95D1', '#FF82A9', '#FFC0BE'];
+  const defaultColoursList = ['#B0F2B4', '#BAF2E9', '#BAD7F2'];
 
   const [gradient, setGradient] = useState(defaultGradient);
   const [scroll, setScroll] = useState(defaultScroll);
@@ -39,33 +39,52 @@ export function Console() {
     setPreview(style);
   }, [speed, coloursList, gradient, scroll])
 
+  async function copyToClipboard() {
+    const cssSelector = `.${cssClass}`
+    const style = cssString(speed, coloursList, gradient, scroll, cssSelector);
+    if ('clipboard' in navigator) {
+      return await navigator.clipboard.writeText(style);
+    } else {
+      return document.execCommand('copy', true, style);
+    }
+  }
+
   return (
     <main >
       <style> {preview} </style>
       <div id="controls" className="console-half">
+
         <div className="section">
           <h2>Design your gradient</h2>
-          <Selector cssClass={cssClass} setCssClass={setCssClass} />
-          <div id="wheels">
-            <Wheel name={'gradient'} angle={gradient} setAngle={setGradient} />
-            <Wheel name={'scroll'} angle={scroll} setAngle={setScroll} />
+          <div id="controls-functions">
+            <Selector cssClass={cssClass} setCssClass={setCssClass} />
+            <div id="wheels">
+              <Wheel name={'gradient'} angle={gradient} setAngle={setGradient} />
+              <Wheel name={'scroll'} angle={scroll} setAngle={setScroll} />
+            </div>
+            <Slider speed={speed} setSpeed={setSpeed} />
+            <Colours coloursList={coloursList} setColoursList={setColoursList} square={square} setSquare={setSquare} />
           </div>
-          <Slider speed={speed} setSpeed={setSpeed} />
-          <Colours coloursList={coloursList} setColoursList={setColoursList} square={square} setSquare={setSquare} />
         </div>
       </div>
-      <div className="console-half">
+      <div id="output-half" className="console-half">
         <div className="section">
           <h2>Copy and paste into CSS stylesheet</h2>
           <Content cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
         </div>
         <div className="section">
-          <h2>Save and share</h2>
-          <Gist cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
-          <Gist cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
+          <span id="reset-span">
+            <h2>Try a new gradient</h2>
+            <button id="reset-btn" className="btn-1" onClick={resetConsole} >Reset</button>
+          </span>
         </div>
         <div className="section">
-          <span id="reset-span"><h2>Try a new gradient</h2><button onClick={resetConsole} >Reset</button></span>
+          <h2>Save and share</h2>
+          <div id="api-btns">
+            <button id="copy-btn" className="btn-api" onClick={copyToClipboard}><span className="icon"><FontAwesomeIcon icon="copy" /></span> Clipboard</button>
+            <Gist cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
+            <a href="https://www.buymeacoffee.com/theabetrain" target="_blank" rel="noreferrer"><img className="btn-api" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" id="coffee-btn" style={{ height: '60px !important', width: '217px !important' }} /></a>
+          </div>
         </div>
       </div>
     </main >
