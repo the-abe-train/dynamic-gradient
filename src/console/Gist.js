@@ -7,23 +7,27 @@ export function Gist({ speed, coloursList, gradient, scroll, cssClass }) {
   let gistContent = cssString(speed, coloursList, gradient, scroll, selector);
   gistContent += "\n\n /* Created using dynamicgradients.com */"
 
+  const postGistApi = `${process.env.REACT_APP_DOMAIN}/postgist`;
+  const loginApi = `${process.env.REACT_APP_DOMAIN}/login`;
+
   function postGist() {
     const data = {
+      description: "CSS Dynamic Gradient",
+      public: true,
       files: {
         "dynamic_gradient.css": {
           content: gistContent,
         },
       },
     };
-    fetch("http://localhost:5000/postgist", {
+    fetch(postGistApi, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((resp) => console.log(resp.body))
-      .then(() => window.location = 'http://localhost:5000/login')
+      .then(() => window.location = loginApi)
       .catch((e) => console.error(e));
   }
 
