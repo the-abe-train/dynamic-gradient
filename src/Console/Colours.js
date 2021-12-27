@@ -1,0 +1,124 @@
+import { HexColorPicker, HexColorInput } from "react-colorful";
+import { useEffect, useState } from "react";
+
+const Picker = ({ colour, setColour }) => {
+
+  function setUpperColour(c) {
+    setColour(c.toUpperCase());
+  }
+
+  return (
+    <div id="colour-picker">
+      <HexColorPicker color={colour} onChange={setUpperColour} />
+      <HexColorInput color={colour} onChange={setUpperColour} />
+    </div>
+  )
+};
+
+function ColourSquare({ coloursList, setColoursList, squareColour, setColour, squareNumber,
+  isActive, square, setSquare, activeColour }) {
+
+  const [show, setShow] = useState(false);
+
+  const style = {
+    backgroundColor: isActive ? activeColour : squareColour,
+    border: isActive ? '.2em solid' : ''
+  }
+
+  const activateSquare = () => {
+    if (show) {
+      setShow(false);
+    } else {
+      setColour(squareColour);
+      setSquare(squareNumber);
+      setShow(true);
+    }
+  }
+
+  function removeColour() {
+    // 0 and null are the same for most conditial statements
+    if (Number.isInteger(square)) {
+      const newList = [...coloursList];
+      newList.splice(square, 1);
+      setColoursList(newList);
+      setSquare(null);
+    }
+  }
+
+  function blur(e) {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setSquare(null);
+      setShow(false);
+    }
+  }
+
+  useEffect(() => {
+    if (!isActive) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
+  }, [isActive])
+
+  const sharpCorner = `#controls-functions {border-bottom-right-radius: 0;}`;
+
+  return (
+    <li tabIndex={0} onBlur={blur}>
+      <div className="colour-square" style={style} onClick={activateSquare}></div>
+      {
+        show &&
+        <div id="pallet">
+          <Picker show={show} setShow={setShow} colour={activeColour}
+            setColour={setColour} />
+          <div id="pallet-btns">
+            <button className="btn-1 pallet-btn" onClick={() => setShow(false)}>Select</button>
+            <button className="btn-1 pallet-btn" onClick={removeColour}>Remove</button>
+          </div>
+          <style>{sharpCorner}</style>
+        </div>
+      }
+    </li>
+  )
+}
+
+
+export function Colours({ coloursList, setColoursList, square, setSquare }) {
+
+  const [colour, setColour] = useState(coloursList[0]);
+
+  function addColour() {
+    setColoursList([...coloursList, colour]);
+    setSquare(coloursList.length);
+  }
+
+  // Change colour using useEffect
+  // On the effect of Colour change, find the Colour in the Colours List
+  // and set the Colours list to a new list with that colour changed
+  useEffect(() => {
+    const newList = [...coloursList];
+    newList.splice(square, 1, colour);
+    setColoursList(newList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colour])
+
+
+  return (
+    <div className="subsection" id="colours-section">
+      <h3 id="colours-header">Colours</h3>
+
+      <ul className="colours-list">
+        {coloursList.map((squareColour, index) => {
+          const isActive = index === square;
+          return <ColourSquare key={index} setColour={setColour} squareNumber={index}
+            square={square} setSquare={setSquare} activeColour={colour} squareColour={squareColour}
+            isActive={isActive} coloursList={coloursList} setColoursList={setColoursList} />
+        })}
+      </ul>
+      {(coloursList.length < 2) &&
+        <p className="error-text">Please select at least 2 colours.</p>
+      }
+      <button id="add-colour-btn" className="btn-1" onClick={addColour}>Add</button>
+    </div>
+  )
+}
+

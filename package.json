@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "17.x"
+    "node": "16.x"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -28,7 +28,7 @@
     "dev": "react-scripts start",
     "server-dev": "nodemon server/index.js",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
   },
