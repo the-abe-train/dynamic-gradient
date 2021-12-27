@@ -96,11 +96,10 @@ button:hover {
 }
 
 .wheel {
-  /* pointer-events: none; */
   width: 5rem;
   cursor: pointer;
   -webkit-user-drag: none;
-  background-color: var(--controls-bg);
+  background-color: transparent;
   z-index: 3;
 }
 
