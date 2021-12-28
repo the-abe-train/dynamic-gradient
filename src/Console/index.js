@@ -40,13 +40,7 @@ export function Console() {
     setPreview(style);
   }, [speed, coloursList, gradient, scroll])
 
-  function preventScroll(e) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  // const props = {speed, coloursList, gradient, scroll}
-
+  
   return (
     <main >
       <div id="controls" className="console-half">
@@ -54,7 +48,7 @@ export function Console() {
           <h2>Design your gradient</h2>
           <div id="controls-functions">
             <Selector cssClass={cssClass} setCssClass={setCssClass} />
-            <div id="wheels" onTouchMove={preventScroll}>
+            <div id="wheels">
               <Wheel name={'gradient'} angle={gradient} setAngle={setGradient} />
               <Wheel name={'scroll'} angle={scroll} setAngle={setScroll} />
             </div>
