@@ -35,7 +35,7 @@ export function Console() {
   }
 
   useEffect(() => {
-    const style = cssString(speed, coloursList, gradient, scroll, "html");
+    const style = cssString(speed, coloursList, gradient, scroll, "html, #window");
     setPreview(style);
   }, [speed, coloursList, gradient, scroll])
 
@@ -51,9 +51,7 @@ export function Console() {
 
   return (
     <main >
-      <style> {preview} </style>
       <div id="controls" className="console-half">
-
         <div className="section">
           <h2>Design your gradient</h2>
           <div id="controls-functions">
@@ -66,6 +64,10 @@ export function Console() {
             <Colours coloursList={coloursList} setColoursList={setColoursList} square={square} setSquare={setSquare} />
           </div>
         </div>
+      </div>
+      <div id="window-section" className="section">
+        <h2>Preview</h2>
+        <div id="window"></div>
       </div>
       <div id="output-half" className="console-half">
         <div className="section">
@@ -87,6 +89,7 @@ export function Console() {
           </div>
         </div>
       </div>
+      <style> {preview} </style>
     </main >
   )
 }

@@ -2,6 +2,15 @@ import { useEffect, useRef } from "react";
 
 export function Wheel({ name, angle, setAngle }) {
 
+  function checkInput() {
+    const regex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    if (regex.test(navigator.userAgent)) {
+      return "touch"
+    } else {
+      return "mouse";
+    }
+  }
+
   const wheelRef = useRef();
 
   const title = name.charAt(0).toUpperCase() + name.substr(1).toLowerCase()
@@ -9,6 +18,7 @@ export function Wheel({ name, angle, setAngle }) {
   let rotation;
 
   function activateDrag(e) {
+
     const wheelElement = wheelRef.current;
     const wheelRect = wheelElement.getBoundingClientRect();
     const wheel = {
@@ -17,38 +27,37 @@ export function Wheel({ name, angle, setAngle }) {
     }
 
     const drag = (e) => {
-      const mouse = { mx: e.clientX, my: e.clientY }
-      let { mx, my } = mouse;
+      e.preventDefault();
+      const client = checkInput() === "mouse" ? e : e.touches[0];
+      const point = { mx: client.clientX, my: client.clientY };
+      let { mx, my } = point;
       let { wx, wy } = wheel;
 
       // Calculate angle
       rotation = Math.atan2(my - wy, mx - wx);
-      // wheelElement.style.transform = `rotate(${rotation}rad)`; 
       setAngle(rotation);
     }
 
     const deactivateDrag = (e) => {
-      document.removeEventListener("mousemove", drag);
+      document.removeEventListener(`mousemove`, drag);
+      document.removeEventListener(`touchmove`, drag);
     }
 
-    document.addEventListener("mousemove", drag, false);
-    document.addEventListener("mouseup", deactivateDrag, false);
+    document.addEventListener(`mousemove`, drag, false);
+    document.addEventListener(`touchmove`, drag, { passive: false });
+    document.addEventListener(`mouseup`, deactivateDrag, false);
+    document.addEventListener(`touchend`, deactivateDrag, { passive: false });
   }
 
   useEffect(() => {
     const wheelElement = wheelRef.current;
     wheelElement.style.transform = `rotate(${angle}rad)`;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [angle])
 
 
   return (
-    <div onMouseDown={activateDrag} id="wheel-section" className="subsection">
+    <div onMouseDown={activateDrag} onTouchStart={activateDrag} id="wheel-section" className="subsection">
       <label htmlFor="wheel"><h3>{title}</h3></label>
-      {/* <svg id={`${name}-wheel`} className="wheel" height="100" width="100">
-        <circle cx="50" cy="50" r="40" stroke="black" strokeWidth="3" fill="transparent" />
-        <line x1="50" y1="50" x2="90" y2="50" stroke="black" strokeWidth="3" />
-      </svg> */}
       <img id={`${name}-wheel`} ref={wheelRef} className="wheel" src="images/dial.svg" alt="" />
     </div>
   )
