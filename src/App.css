@@ -323,11 +323,17 @@ button:hover {
     border-radius: 0.5rem;
   }
 
-
-  /* Window */
-
   #window-section {
     display: block;
+  }
+
+  .btn-api {
+    margin: .5rem;
+  }
+
+  #api-btns {
+    width: 90%;
+
   }
 
 

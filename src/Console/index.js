@@ -56,7 +56,7 @@ export function Console() {
           <h2>Design your gradient</h2>
           <div id="controls-functions">
             <Selector cssClass={cssClass} setCssClass={setCssClass} />
-            <div id="wheels">
+            <div id="wheels" onTouchMove={(e) => e.preventDefault()}>
               <Wheel name={'gradient'} angle={gradient} setAngle={setGradient} />
               <Wheel name={'scroll'} angle={scroll} setAngle={setScroll} />
             </div>

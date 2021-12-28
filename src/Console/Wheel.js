@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 
+// TODO fix dial turning on mobile with mouse
+
 export function Wheel({ name, angle, setAngle }) {
 
   function checkInput() {
@@ -19,6 +21,10 @@ export function Wheel({ name, angle, setAngle }) {
 
   function activateDrag(e) {
 
+    // Stop scrolling when dragging on mobile
+    e.preventDefault();
+    e.stopPropagation();
+
     const wheelElement = wheelRef.current;
     const wheelRect = wheelElement.getBoundingClientRect();
     const wheel = {
@@ -27,7 +33,11 @@ export function Wheel({ name, angle, setAngle }) {
     }
 
     const drag = (e) => {
+
+      // Stop scrolling when dragging on mobile
       e.preventDefault();
+      e.stopPropagation();
+
       const client = checkInput() === "mouse" ? e : e.touches[0];
       const point = { mx: client.clientX, my: client.clientY };
       let { mx, my } = point;
@@ -43,9 +53,9 @@ export function Wheel({ name, angle, setAngle }) {
       document.removeEventListener(`touchmove`, drag);
     }
 
-    document.addEventListener(`mousemove`, drag, false);
+    document.addEventListener(`mousemove`, drag, { passive: false });
     document.addEventListener(`touchmove`, drag, { passive: false });
-    document.addEventListener(`mouseup`, deactivateDrag, false);
+    document.addEventListener(`mouseup`, deactivateDrag, { passive: false });
     document.addEventListener(`touchend`, deactivateDrag, { passive: false });
   }
 
