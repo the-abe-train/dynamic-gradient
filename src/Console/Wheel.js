@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-// TODO fix dial turning on mobile with mouse
+// TODO fix dial turning on mobile with mouse.
 
 export function Wheel({ name, angle, setAngle }) {
 
@@ -59,6 +59,18 @@ export function Wheel({ name, angle, setAngle }) {
     document.addEventListener(`touchend`, deactivateDrag, { passive: false });
   }
 
+  function keyboardRotate(e) {
+    const clockwiseKeys = ["ArrowRight", "ArrowDown"];
+    const widdershinsKeys = ["ArrowLeft", "ArrowUp"];
+    if (clockwiseKeys.includes(e.key)) {
+      e.preventDefault();
+      setAngle(angle + 0.1);
+    } else if (widdershinsKeys.includes(e.key)) {
+      e.preventDefault();
+      setAngle(angle - 0.1);
+    }
+  }
+
   useEffect(() => {
     const wheelElement = wheelRef.current;
     wheelElement.style.transform = `rotate(${angle}rad)`;
@@ -66,9 +78,9 @@ export function Wheel({ name, angle, setAngle }) {
 
 
   return (
-    <div onMouseDown={activateDrag} onTouchStart={activateDrag} id="wheel-section" className="subsection">
+    <div onKeyDown={keyboardRotate} tabindex="0" onke onMouseDown={activateDrag} onTouchStart={activateDrag} id="wheel-section" className="subsection">
       <label htmlFor="wheel"><h3>{title}</h3></label>
-      <img id={`${name}-wheel`} ref={wheelRef} className="wheel" src="images/dial.svg" alt="" />
+      <img   id={`${name}-wheel`} ref={wheelRef} className="wheel" src="images/dial.svg" alt="" />
     </div>
   )
 }

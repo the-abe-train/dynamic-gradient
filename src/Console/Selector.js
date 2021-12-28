@@ -5,8 +5,9 @@ export function Selector({ cssClass, setCssClass }) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (cssClass.includes(' ')) {
-      setError("Must not include whitespace");
+    const cssRegex = /^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$/
+    if (!cssRegex.test(cssClass)) {
+      setError("Class name must conform to css rules.");
     } else {
       setError("");
     }

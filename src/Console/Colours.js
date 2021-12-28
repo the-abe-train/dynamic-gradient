@@ -26,13 +26,13 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
   }
 
   const activateSquare = () => {
-    if (show) {
-      setShow(false);
-    } else {
+    // if (show) {
+    //   setShow(false);
+    // } else {
       setColour(squareColour);
       setSquare(squareNumber);
       setShow(true);
-    }
+    // }
   }
 
   function removeColour() {
@@ -46,7 +46,13 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
   }
 
   function blur(e) {
-    if (!e.currentTarget.contains(e.relatedTarget)) {
+    // TODO Assuming it's "Return" on mac, but should really check
+    const cancelKeys = ["Escape", "Enter", "Return"];
+    if (e.type === 'keydown' && cancelKeys.includes(e.key)) {
+      e.preventDefault();
+      setSquare(null);
+      setShow(false);
+    } else if (e.type === 'blur' && !e.currentTarget.contains(e.relatedTarget)) {
       setSquare(null);
       setShow(false);
     }
@@ -63,8 +69,8 @@ function ColourSquare({ coloursList, setColoursList, squareColour, setColour, sq
   const sharpCorner = `#controls-functions {border-bottom-right-radius: 0;}`;
 
   return (
-    <li tabIndex={0} onBlur={blur}>
-      <div className="colour-square" style={style} onClick={activateSquare}></div>
+    <li tabIndex={0} onBlur={blur} onFocus={activateSquare} onKeyDown={blur}>
+      <div className="colour-square" style={style} onClick={activateSquare}> </div>
       {
         show &&
         <div id="pallet">
