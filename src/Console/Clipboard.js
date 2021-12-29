@@ -7,8 +7,7 @@ export function Clipboard({ speed, coloursList, gradient, scroll, cssClass }) {
   const [show, setShow] = useState(false);
 
   async function copyToClipboard() {
-    const cssSelector = `.${cssClass}`
-    console.log(cssClass);
+    const cssSelector = `.${cssClass}`;
     const style = cssString(speed, coloursList, gradient, scroll, cssSelector);
     setShow(true);
     setTimeout(() => setShow(false), 2000)

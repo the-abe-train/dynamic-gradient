@@ -40,7 +40,7 @@ export function Console() {
     setPreview(style);
   }, [speed, coloursList, gradient, scroll])
 
-  
+
   return (
     <main >
       <div id="controls" className="console-half">
@@ -77,7 +77,7 @@ export function Console() {
           <div id="api-btns">
             <Clipboard cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList}/>
             <Gist cssClass={cssClass} gradient={gradient} scroll={scroll} speed={speed} coloursList={coloursList} />
-            <a href="https://www.buymeacoffee.com/theabetrain" target="_blank" rel="noreferrer"><img className="btn-api" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" id="coffee-btn" style={{ height: '40px !important', width: '142px !important' }} /></a>
+            <a href="https://www.buymeacoffee.com/theabetrain" target="_blank" rel="noreferrer"><img className="btn-api" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" id="coffee-btn" /></a>
           </div>
         </div>
       </div>

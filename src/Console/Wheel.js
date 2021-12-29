@@ -5,8 +5,9 @@ import { useEffect, useRef } from "react";
 export function Wheel({ name, angle, setAngle }) {
 
   function checkInput() {
-    const regex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-    if (regex.test(navigator.userAgent)) {
+    // const regex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    // if (regex.test(navigator.userAgent)) {
+    if (navigator.userAgentData.mobile) {
       return "touch"
     } else {
       return "mouse";
@@ -78,9 +79,9 @@ export function Wheel({ name, angle, setAngle }) {
 
 
   return (
-    <div onKeyDown={keyboardRotate} tabindex="0" onke onMouseDown={activateDrag} onTouchStart={activateDrag} id="wheel-section" className="subsection">
+    <div onKeyDown={keyboardRotate} tabIndex="0" onMouseDown={activateDrag} onTouchStart={activateDrag} id={`${name}-wheel-subsection`} className="subsection">
       <label htmlFor="wheel"><h3>{title}</h3></label>
-      <img   id={`${name}-wheel`} ref={wheelRef} className="wheel" src="images/dial.svg" alt="" />
+      <img id={`${name}-wheel`} ref={wheelRef} className="wheel" src="images/dial.svg" alt="" />
     </div>
   )
 }

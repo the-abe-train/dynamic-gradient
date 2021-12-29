@@ -123,7 +123,7 @@ export function Colours({ coloursList, setColoursList, square, setSquare }) {
       {(coloursList.length < 2) &&
         <p className="error-text">Please select at least 2 colours.</p>
       }
-      <button id="add-colour-btn" className="btn-1" onClick={addColour}>Add</button>
+      <button id="add-colour-btn" className="btn-1 pallet-btn" onClick={addColour}>Add</button>
     </div>
   )
 }
