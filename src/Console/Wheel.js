@@ -2,14 +2,6 @@ import { useEffect, useRef } from "react";
 
 export function Wheel({ name, angle, setAngle }) {
 
-  function checkInput() {
-    if (navigator.userAgentData.mobile) {
-      return "touch"
-    } else {
-      return "mouse";
-    }
-  }
-
   const wheelRef = useRef();
 
   const title = name.charAt(0).toUpperCase() + name.substr(1).toLowerCase()
@@ -31,11 +23,14 @@ export function Wheel({ name, angle, setAngle }) {
 
     const drag = (e) => {
 
+      // console.log(e);
+
       // Stop scrolling when dragging on mobile
       e.preventDefault();
       e.stopPropagation();
 
-      const client = checkInput() === "mouse" ? e : e.touches[0];
+      // const client = checkInput() === "mouse" ? e : e.touches[0];
+      const client = e.touches ? e.touches[0] : e;
       const point = { mx: client.clientX, my: client.clientY };
       let { mx, my } = point;
       let { wx, wy } = wheel;
@@ -46,14 +41,14 @@ export function Wheel({ name, angle, setAngle }) {
     }
 
     const deactivateDrag = (e) => {
-      document.removeEventListener(`mousemove`, drag);
-      document.removeEventListener(`touchmove`, drag);
+      document.removeEventListener("mousemove", drag);
+      document.removeEventListener("touchmove", drag);
     }
 
-    document.addEventListener(`mousemove`, drag, { passive: false });
-    document.addEventListener(`touchmove`, drag, { passive: false });
-    document.addEventListener(`mouseup`, deactivateDrag, { passive: false });
-    document.addEventListener(`touchend`, deactivateDrag, { passive: false });
+    document.addEventListener("mousemove", drag, { passive: false });
+    document.addEventListener("touchmove", drag, { passive: false });
+    document.addEventListener("mouseup", deactivateDrag, { passive: false });
+    document.addEventListener("touchend", deactivateDrag, { passive: false });
   }
 
   function keyboardRotate(e) {
