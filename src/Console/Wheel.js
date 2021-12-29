@@ -1,12 +1,8 @@
 import { useEffect, useRef } from "react";
 
-// TODO fix dial turning on mobile with mouse.
-
 export function Wheel({ name, angle, setAngle }) {
 
   function checkInput() {
-    // const regex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-    // if (regex.test(navigator.userAgent)) {
     if (navigator.userAgentData.mobile) {
       return "touch"
     } else {
@@ -77,11 +73,16 @@ export function Wheel({ name, angle, setAngle }) {
     wheelElement.style.transform = `rotate(${angle}rad)`;
   }, [angle])
 
+  useEffect(() => {
+    wheelRef.current.addEventListener('touchstart', activateDrag, { passive: false });
+  })
 
   return (
-    <div onKeyDown={keyboardRotate} tabIndex="0" onMouseDown={activateDrag} onTouchStart={activateDrag} id={`${name}-wheel-subsection`} className="subsection">
+    <div tabIndex="0" id={`${name}-wheel-subsection`} className="subsection"
+      onKeyDown={keyboardRotate}>
       <label htmlFor="wheel"><h3>{title}</h3></label>
-      <img id={`${name}-wheel`} ref={wheelRef} className="wheel" src="images/dial.svg" alt="" />
+      <img id={`${name}-wheel`} ref={wheelRef} className="wheel" src="images/dial.svg" alt=""
+        onMouseDown={activateDrag} />
     </div>
   )
 }
